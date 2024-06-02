@@ -1,6 +1,6 @@
 import pg from "pg";
 
-const client = new pg.Client("Get Your Own URL from ");
+const client = new pg.Client("get your own db url from postgresql");
 await client.connect();
 console.log("Connected to DB");
 async function getClient(){
