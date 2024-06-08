@@ -19,6 +19,7 @@ export default function ClassRoomStudent(){
   const class_id = (location.state || {}).id;
 
   const [classInfo, setClassInfo] = useState({});
+  const [latestAnnouncement, setLatestAnnouncement] = useState({});
   const token = localStorage.getItem('token');
   const config = {
     headers: { Authorization: `Bearer ${token}` }
@@ -31,6 +32,7 @@ export default function ClassRoomStudent(){
     axios.get(`http://localhost:3000/api/v1/student/class/${class_id}`, config)
       .then((response) => {
         setClassInfo(response.data.classInfo);
+        setLatestAnnouncement(response.data.latestAnnouncement);
       })
       .catch((error) => {
         console.log(error);
@@ -51,12 +53,12 @@ export default function ClassRoomStudent(){
             <div>Book References : {classInfo.book_ref}</div>
             <div>Prerequsites : {classInfo.prereqs}</div>
         </div>
-        <div className="">
+        <div className="" >
             <div className="">
                 <div className="text-lg pb-4">Latest Announcement</div>
-                <div className="bg-[#95bdf3] rounded-lg p-4">
-                    <p className="text-red-500">New Assignment due next week</p>
-                    <p className="text-gray-600 text-sm">Posted 2 days ago</p>
+                <div className="bg-[#95bdf3] rounded-lg p-4" >
+                    <p className="text-red-500">{latestAnnouncement.title}</p>
+                    <p className="text-gray-600 text-sm">Posted on Date</p>
                 </div>
             </div>
         </div>
@@ -86,10 +88,10 @@ export default function ClassRoomStudent(){
                 <FontAwesomeIcon icon={UsersIcon} className="w-4 h-4 mr-2" />
                   <span className="text-sm font-medium">View Participants</span>
                 </button>
-                <button className="bg-[#d9e6f7] flex items-center justify-center p-4" variant="outline">
+                {/* <button className="bg-[#d9e6f7] flex items-center justify-center p-4" variant="outline">
                 <FontAwesomeIcon icon={GroupChatIcon} className="w-4 h-4 mr-2" />
                   <span className="text-sm font-medium">Join Group Chat</span>
-                </button>
+                </button> */}
                 <button className="bg-[#d9e6f7] flex items-center justify-center p-4" variant="outline" onClick={()=>{
                   navigate('/student-assignment', {state: {id: class_id}})
                 }}>

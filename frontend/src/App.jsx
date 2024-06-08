@@ -23,6 +23,8 @@ import DoubtDiscussionPage from './pages/DoubtDiscussionPage'
 import DoubtCardTutor from './components/DoubtCardTutor'
 import DoubtDiscussionPageTutor from './pages/DoubtDiscussionPageTutor'
 import AIAssistant from './components/AIAssistant'
+import Dsa from './pages/sld/Dsa'
+import TopicPage from './pages/sld/Topicpage'
 function App() {
   return (
     <div className='bg-[#03040e] h-full'>
@@ -49,6 +51,9 @@ function App() {
             <Route path='/doubt-discussion' element={<DoubtDiscussionPage />} />
             <Route path='/doubt-card-tutor' element={<DoubtCardTutor />} />
             <Route path='/doubt-discussion-tutor' element={<DoubtDiscussionPageTutor />} />
+            <Route path='/dsa' element={<Dsa />} />
+            <Route path='/topic/:id' element={<TopicPage />} />
+            <Route path='*'>404 Not Found</Route>
           </Routes>
       </Router>
     </div>

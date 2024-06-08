@@ -74,7 +74,7 @@ export default function Signup(){
 
     return (
         isloading ? <Spinner/> :
-        <div className="bg-[#03040e] text-white h-full">
+        <div className="bg-[#03040e] text-white h-screen">
         <ToastContainer />
             <div className="flex h-full items-center ">
                 <div className="w-1/2 pl-12 ml-3">

@@ -24,6 +24,7 @@ export default function ClassRoomTutor(){
   const [classInfo, setClassInfo] = useState({});
   const [classCode, setClassCode] = useState('');
   const token = localStorage.getItem('token');
+  const [latestAnnouncement, setLatestAnnouncement] = useState({});
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   };
@@ -36,6 +37,7 @@ export default function ClassRoomTutor(){
       .then((response) => {
         setClassInfo(response.data.classInfo);
         setClassCode(response.data.classcode);
+        setLatestAnnouncement(response.data.latestAnnouncement);
       })
       .catch((error) => {
         console.log(error);
@@ -68,8 +70,8 @@ export default function ClassRoomTutor(){
                 <div className="">
                     <div className="text-lg pb-4">Latest Announcement</div>
                     <div className="bg-[#95bdf3] rounded-lg p-4">
-                        <p className="text-red-500">New Assignment due next week</p>
-                        <p className="text-gray-600 text-sm">Posted 2 days ago</p>
+                        <p className="text-red-500">{latestAnnouncement.title}</p>
+                        <p className="text-gray-600 text-sm">Posted on Date</p>
                     </div>
                 </div>
                 <div>
@@ -109,10 +111,10 @@ export default function ClassRoomTutor(){
                   <span className="text-sm font-medium">All Participants</span>
                 </button>
 
-                <button className="bg-[#d9e6f7] flex items-center justify-center p-4 rounded-md" variant="outline">
+                {/* <button className="bg-[#d9e6f7] flex items-center justify-center p-4 rounded-md" variant="outline">
                     <FontAwesomeIcon icon={GroupChatIcon} className="w-4 h-4 mr-2" />
                   <span className="text-sm font-medium">Group Chat</span>
-                </button> 
+                </button>  */}
 
                 <button className="bg-[#d9e6f7] flex items-center justify-center p-4 rounded-md" variant="outline" onClick={()=>{
                   navigate('/tutor-assignment', { state: { id: class_id } });
@@ -121,10 +123,10 @@ export default function ClassRoomTutor(){
                   <span className="text-sm font-medium">Add Assignment</span>
                 </button>
 
-                <button className="bg-[#d9e6f7] flex items-center justify-center p-4 rounded-md" variant="outline">
+                {/* <button className="bg-[#d9e6f7] flex items-center justify-center p-4 rounded-md" variant="outline">
                   <FontAwesomeIcon icon={EditIcon} className="w-4 h-4 mr-2" />
                   <span className="text-sm font-medium">Edit Classroom</span>
-                </button>
+                </button> */}
                 
               </div>
         </div>
