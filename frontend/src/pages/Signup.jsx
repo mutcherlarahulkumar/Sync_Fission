@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useEffect } from 'react';
 import Spinner from '../components/Spinner';
+import { createUser } from '../interactiveLearning';
 
 export default function Signup(){
 
@@ -32,7 +33,7 @@ export default function Signup(){
     const [passwordCheck, setPasswordCheck] = useState('');
 
 
-    function buttonclicked(e){
+    async function buttonclicked(e){
         setisLoading(true);
         e.preventDefault();
         if(firstName === '' || lastName === '' || email === '' || password === '' || passwordCheck === ''){
@@ -46,7 +47,7 @@ export default function Signup(){
         const signupUser = {firstname:firstName, lastname:lastName, email, password};
         //send backend call to register signupUser
         console.log(signupUser);
-        axios.post(`http://localhost:3000/api/v1/signup/${user.toLowerCase()}`, signupUser)
+        await axios.post(`http://localhost:3000/api/v1/signup/${user.toLowerCase()}`, signupUser)
         .then((response)=>{
             console.log(response.data);
             localStorage.setItem("token",response.data.token);
@@ -65,6 +66,8 @@ export default function Signup(){
             console.log(error.response.data);
             toast.error(error.response.data.error);
         });
+
+        createUser(email);
     }
 
 
@@ -76,11 +79,11 @@ export default function Signup(){
         isloading ? <Spinner/> :
         <div className="bg-[#03040e] text-white h-screen">
         <ToastContainer />
-            <div className="flex h-full items-center ">
+            <div className="flex items-center h-full ">
                 <div className="w-1/2 pl-12 ml-3">
-                    <div className="bg-gray-800 rounded-lg w-max p-10 ">
+                    <div className="p-10 bg-gray-800 rounded-lg w-max ">
                         <form className="max-w-md mx-auto">
-                        <div className="text-3xl font-bold mb-6">Sign Up {user}</div>
+                        <div className="mb-6 text-3xl font-bold">Sign Up {user}</div>
                             <div className="grid md:grid-cols-2 md:gap-6">
                                 <div className="relative z-0 w-full mb-5 group">
                                     <input type="text" className="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " onChange={(e)=>{setFirstName(e.target.value)}}  required/>
@@ -112,9 +115,9 @@ export default function Signup(){
                     </div>
                 </div>
                 <div className='w-1/2'>
-                    <div className="font-bold text-2xl pl-8">Signing Up as an <span className='text-3xl text-[#5b21b6]'>{user}</span></div>
-                    <img src={personimage} alt="student" className='h-5/6 w-1/2 rounded-2xl mt-12 ml-12 p-1 light-on-hover'/>
-                    <div className='mt-4 ml-12 pl-8 text-gray-400'>Not A <span className='font-bold'>{user}</span>? <span className='text-white hover:cursor-pointer hover:underline' onClick={changeUser}>Change Role</span></div>
+                    <div className="pl-8 text-2xl font-bold">Signing Up as an <span className='text-3xl text-[#5b21b6]'>{user}</span></div>
+                    <img src={personimage} alt="student" className='w-1/2 p-1 mt-12 ml-12 h-5/6 rounded-2xl light-on-hover'/>
+                    <div className='pl-8 mt-4 ml-12 text-gray-400'>Not A <span className='font-bold'>{user}</span>? <span className='text-white hover:cursor-pointer hover:underline' onClick={changeUser}>Change Role</span></div>
                 </div>
             </div>
         </div>
