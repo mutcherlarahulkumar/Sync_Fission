@@ -1,6 +1,11 @@
 import pg from "pg";
+import dotenv from "dotenv";
+dotenv.config();
 
-const client = new pg.Client("get your own db url from postgresql");
+const client = new pg.Client(
+    process.env.DB_URL
+);
+
 await client.connect();
 console.log("Connected to DB");
 async function getClient(){
